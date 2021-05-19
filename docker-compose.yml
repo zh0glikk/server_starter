@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+  tcp_echo_server:
+    image: tcp_echo_server:latest
+    restart: unless-stopped
+    environment:
+      - KV_VIPER_FILE=/config.yaml
+    volumes:
+      - ./configs/tcp_echo_server.yaml:/config.yaml
+    entrypoint: sh -c "tcp_echo_server run"
+    ports:
+    - 5101:5101
+
+  udp_echo_server:
+    image: udp_echo_server:latest
+    restart: unless-stopped
+    environment:
+      - KV_VIPER_FILE=/config.yaml
+    volumes:
+      - ./configs/udp_echo_server.yaml:/config.yaml
+    entrypoint: sh -c "udp_echo_server run"
+    ports:
+      - 8285:8285/udp
